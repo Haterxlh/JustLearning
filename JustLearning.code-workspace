@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+
+	"settings": {
+		// 1. 指定默认的 Python 解释器路径 (关键)
+		"python.defaultInterpreterPath": "${workspaceFolder}/.just-learning-venv/Scripts/python.exe",
+
+		// 2. 控制终端激活行为 (核心)
+		"python.terminal.activateEnvironment": true,
+		"python.terminal.activateEnvInCurrentTerminal": true,
+	
+		// 3. 可选：指定语言服务器，提升代码补全体验
+		"python.languageServer": "Pylance"
+	}
+}

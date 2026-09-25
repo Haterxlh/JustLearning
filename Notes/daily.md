@@ -40,6 +40,12 @@
 3. 明天的第一件事是什么？
 
 ### 证据索引
-- commit：
+- commit：**无**（Day 01 零 commit；`.gitignore` 于 20:50 补建，挡掉 311MB venv + 205MB tutorial）
 - 产物文件 / 数字 / 图表：
-- 自测分数：
+  - `algorithms/1.两数之和/`、`3.无重复字符的最长子串/`、`15.三数之和/`、`49.字母异位词分组/`（各含 `.py`；#15、#49 另有卡点 `.md`）
+  - 复核：`algorithms/_day01_check.py` 跑 26 个用例 → **PASS=26 FAIL=0**
+  - 复杂度实测（#3，字母表不设限）：n=10000 → 0.392s ｜ n=20000 → 1.565s ｜ n=40000 → 8.720s（确认 O(n²)；LeetCode 能过是因为题目限定字母表 ~95 个字符）
+  - `notes/gap-analysis.md`：**6 份 JD 原文**（华为 AI应用；腾讯 AI全栈 / Agent开发 / AI应用；字节 AI应用研发 / AI全栈）。第二节 56 条考点自评**未填**
+  - `handwritten/machine-learning-toy-code/LinearRegression.ipynb`：手写带偏置 BGD 收敛 `w=1.9822 / b=0.7056`；sklearn `1.9848 / 0.7040`；真值 `2.0 / 0.7`
+  - 新建：`.gitignore`、`algorithms/acm_template.py`
+- 自测分数：LeetCode 摸底 4 道 → 26/26 用例通过；**未做** 机考全真摸底（20 选择 + 2 编程，Day 03）。（原计划的"ACM 模式转换"已于当日**取消**：改为 LeetCode 学算法 + 牛客练 ACM 模式，不把同一道题做两遍）

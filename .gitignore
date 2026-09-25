@@ -1,0 +1,33 @@
+# ===== 虚拟环境（绝不入库，.just-learning-venv 已经 311MB）=====
+.just-learning-venv/
+.venv/
+venv/
+env/
+
+# ===== 大体积教程仓库 / 数据集（保留在磁盘上，但不进 git）=====
+# tutorial/machine-learning-toy-code 有 205MB（含 MNIST 原始数据）
+tutorial/
+datasets/
+
+# ===== 模型权重（都是 GB 级）=====
+models/
+*.gguf
+*.safetensors
+*.pt
+*.pth
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# ===== 编辑器 / 系统 =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ===== 临时脚本 =====
+_nb_*.py
+_scratch_*.py
