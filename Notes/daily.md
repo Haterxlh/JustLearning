@@ -49,3 +49,24 @@
   - `handwritten/machine-learning-toy-code/LinearRegression.ipynb`：手写带偏置 BGD 收敛 `w=1.9822 / b=0.7056`；sklearn `1.9848 / 0.7040`；真值 `2.0 / 0.7`
   - 新建：`.gitignore`、`algorithms/acm_template.py`
 - 自测分数：LeetCode 摸底 4 道 → 26/26 用例通过；**未做** 机考全真摸底（20 选择 + 2 编程，Day 03）。（原计划的"ACM 模式转换"已于当日**取消**：改为 LeetCode 学算法 + 牛客练 ACM 模式，不把同一道题做两遍）
+
+---
+
+## Day 02｜09-26（周六）
+
+### 3 行技术日志
+- 今天写通的代码：（待本人 09-26 晚口述补）
+- 今天真正搞懂的概念：（待本人 09-26 晚口述补）
+- 今天没搞懂 / 明天要问的：（待本人 09-26 晚口述补）
+
+### 复盘三问
+1. 今天我写通了什么代码？（待本人 09-26 晚口述补）
+2. 今天哪个概念我能给别人讲明白了？哪个还讲不清？（待本人 09-26 晚口述补）
+3. 明天的第一件事是什么？（待本人 09-26 晚口述补）
+
+### 证据索引
+- commit：Day 02 白天**零 commit**；产物于 09-26 23:5x 由 agent 代补入库一次
+- 产物文件 / 数字 / 图表：
+  - `handwritten/softmax/softmax.ipynb`：`softmax` / `minus_max` + `stable_softmax` / `log_softmax`（含 `vmax + log∑e(x−vmax)` 推导）/ 手写快速选择 `quick_choose` 版 top-k + `np.argpartition` 版 `top_k` / `keep_top_p_logits`（cum 右移 + 保底首个）/ `温度 + top-k + top-p + 采样` 组合采样。实测 `x=[[1000,1001,1002],[1,2,3]]` → `stable_softmax` 无 inf/nan，`exp(log_softmax)` 与之吻合；`keep_top_k_logits(x,3)` 在 `[1000,1001,1003,1002,1008]` 上只留 1003/1002/1008，其余 `-inf`
+  - `algorithms/234  REALHW 小红的流水线阶段划分/`：`234  REALHW 小红的流水线阶段划分.ipynb`（朴素 dp 版 + 单调队列优化版）+ `desc.png`。提交结果：**通过全部用例 / 1125ms / 12684KB**
+- 自测分数：**无**（当天未做考点自测；机考全真摸底顺延 09-27）
