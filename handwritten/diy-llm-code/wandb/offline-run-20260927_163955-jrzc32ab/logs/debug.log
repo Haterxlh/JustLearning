@@ -1,0 +1,24 @@
+2026-09-27 16:39:55,441 INFO    MainThread:24888 [wandb_setup.py:_flush():81] Current SDK version is 0.30.0
+2026-09-27 16:39:55,441 INFO    MainThread:24888 [wandb_setup.py:_flush():81] Configure stats pid to 24888
+2026-09-27 16:39:55,441 INFO    MainThread:24888 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2026-09-27 16:39:55,441 INFO    MainThread:24888 [wandb_init.py:setup_run_log_directory():739] Logging user logs to d:\Desktop\JustLearning\handwritten\diy-llm-code\wandb\offline-run-20260927_163955-jrzc32ab\logs\debug.log
+2026-09-27 16:39:55,441 INFO    MainThread:24888 [wandb_init.py:setup_run_log_directory():740] Logging internal logs to d:\Desktop\JustLearning\handwritten\diy-llm-code\wandb\offline-run-20260927_163955-jrzc32ab\logs\debug-internal.log
+2026-09-27 16:39:55,442 INFO    MainThread:24888 [wandb_init.py:monkeypatch_ipython():658] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x0000025C7BC43B60>
+2026-09-27 16:39:55,442 INFO    MainThread:24888 [wandb_init.py:init():783] calling init triggers
+2026-09-27 16:39:55,442 INFO    MainThread:24888 [wandb_init.py:init():788] wandb.init called with sweep_config: {}
+config: {'model': 'Qwen2.5-Math-1.5B', 'dataset_tag': 'raw', 'batch_size': 64, 'max_examples': '1000', 'seed': 2026, 'learning_rate': 2e-05, '_wandb': {}}
+2026-09-27 16:39:55,442 INFO    MainThread:24888 [wandb_init.py:init():831] starting backend
+2026-09-27 16:39:57,992 INFO    MainThread:24888 [wandb_init.py:init():846] sending inform_init request
+2026-09-27 16:39:58,026 INFO    MainThread:24888 [wandb_init.py:init():851] backend started and connected
+2026-09-27 16:39:58,096 INFO    MainThread:24888 [wandb_run.py:_label_probe_notebook():1213] probe notebook
+2026-09-27 16:39:58,096 INFO    MainThread:24888 [wandb_run.py:_label_probe_notebook():1223] Unable to probe notebook: 'gbk' codec can't decode byte 0x80 in position 256: illegal multibyte sequence
+2026-09-27 16:39:58,096 INFO    MainThread:24888 [wandb_init.py:init():921] updated telemetry
+2026-09-27 16:39:58,203 INFO    MainThread:24888 [wandb_init.py:init():944] communicating run to backend with 90.0 second timeout
+2026-09-27 16:39:58,209 INFO    MainThread:24888 [wandb_init.py:init():981] starting run threads in backend
+2026-09-27 16:39:58,826 INFO    MainThread:24888 [wandb_run.py:_console_start():2531] atexit reg
+2026-09-27 16:39:58,826 INFO    MainThread:24888 [wandb_run.py:_redirect():2381] redirect: wrap_raw
+2026-09-27 16:39:58,826 INFO    MainThread:24888 [wandb_run.py:_redirect():2450] Wrapping output streams.
+2026-09-27 16:39:58,826 INFO    MainThread:24888 [wandb_run.py:_redirect():2473] Redirects installed.
+2026-09-27 16:39:58,893 INFO    MainThread:24888 [wandb_init.py:init():1019] run started, returning control to user process
+2026-09-27 16:39:58,896 INFO    MainThread:24888 [jupyter.py:save_ipynb():368] [no run ID] not saving jupyter notebook
+2026-09-27 16:39:58,896 INFO    MainThread:24888 [wandb_init.py:_post_run_cell_hook():613] [no run ID] pausing backend

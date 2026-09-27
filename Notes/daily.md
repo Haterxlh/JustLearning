@@ -77,3 +77,32 @@
   - `handwritten/softmax/softmax.ipynb`：`softmax` / `minus_max` + `stable_softmax` / `log_softmax`（含 `vmax + log∑e(x−vmax)` 推导）/ 手写快速选择 `quick_choose` 版 top-k + `np.argpartition` 版 `top_k` / `keep_top_p_logits`（cum 右移 + 保底首个）/ `温度 + top-k + top-p + 采样` 组合采样。实测 `x=[[1000,1001,1002],[1,2,3]]` → `stable_softmax` 无 inf/nan，`exp(log_softmax)` 与之吻合；`keep_top_k_logits(x,3)` 在 `[1000,1001,1003,1002,1008]` 上只留 1003/1002/1008，其余 `-inf`
   - `algorithms/234  REALHW 小红的流水线阶段划分/`：`234  REALHW 小红的流水线阶段划分.ipynb`（朴素 dp 版 + 单调队列优化版）+ `desc.png`。提交结果：**通过全部用例 / 1125ms / 12684KB**
 - 自测分数：**无**（当天未做考点自测；机考全真摸底顺延 09-27）
+
+---
+
+## Day 03｜09-27（周日）
+
+> 本人 21:30 报："今天太累了，睡着了，只有一点点进度。" 实际工作在 16:20-17:00 左右，其余时段为空。
+
+### 3 行技术日志
+- 今天写通的代码：REALHW228「小红的稀疏缓存管理器」——`heapq` + 哈希表模拟缓存，`sys.stdin.buffer.read().split()` 整块读入（提交 100% 通过）
+- 今天真正搞懂的概念：（待本人补）
+- 今天没搞懂 / 明天要问的：（待本人补：笔记里自己写了 3 条卡点——看错题、`bytes` 要 `decode`、`heapq` 不熟）
+
+### 复盘三问
+1. 今天我写通了什么代码？（待本人补）
+2. 今天哪个概念我能给别人讲明白了？哪个还讲不清？（待本人补）
+3. 明天的第一件事是什么？（待本人补；agent 建议 = 09:00 先做 20 道选择题限时 60 min，补 W1 摸底）
+
+### 有效时间
+- **约 1h / 12h**（agent 按文件时间戳估：16:20-17:00；**本人未校准**）
+
+### 证据索引
+- commit：`9a87b28`（21:3x 由 agent 补提交当天产物）
+- 产物文件 / 数字 / 图表：
+  - `algorithms/228 REALHW 小红的稀疏缓存管理器/`：`228 ...ipynb` + `desc.png`。提交结果 **答案正确 / 1499ms / 78284KB / 用例通过率 100.00%**；含思路与 3 条卡点笔记
+  - `handwritten/diy-llm-code/01-wandb.ipynb`：`wandb.init(mode="offline")` 跑通（`execution_count=1`），落地 `wandb/offline-run-20260927_163955-jrzc32ab/`。**属 diy-llm ch1（W&B），用量表标注"明确不碰"**
+  - `handwritten/diy-llm-code/02-tokenizer.ipynb`：2 段 markdown 概念笔记（tokenizer 定义 / 动态颗粒度 / `incredible` → `['in','credible']`），**无代码无数字** → ch2 仅开头
+- 自测分数：**无**
+- 未做：环境收口（`notes/baseline-env.md` 零改动）、`gap-analysis.md` 第二节 56 条自评
+- 待确认：`algorithms/_day01_check.py`、`algorithms/acm_template.py` 被删除（未提交状态已随本次 commit 生效）
