@@ -69,7 +69,7 @@
 
 ### 🔎 口述暴露的两个缺口（进后续计划，不许丢）
 - **softmax 只做了 2 维** → `keep_top_k_logits` 是行循环、`quick_choose` 是 1D；真实推理里 logits 是 `(B, T, V)` 三维（vLLM/transformers 都是扁平化 + `take_along_axis`）。→ 计划：Day 03 补漏位（可选，10 min）或 W2，用 `np.take_along_axis` 改成支持 `(B,T,V)`，并与 `torch.nn.functional.softmax` 对一次数值
-- **dp 状态表示缺经验** → 计划：09-27 起牛客按华为真题（REALHW）顺序推进，每题的卡点笔记里**必须先写"状态表示一句话"**再写转移方程
+- **dp 状态表示缺经验** → 计划：牛客按**真题顺序**推进；**卡点笔记只写"这题考什么 + 我的卡点"**（华为机考题型是混的：字符串/模拟/贪心/二分/BFS/栈/DP 都有，**不是只有 dp**）；**只有真做 dp 题时**，才先写一句"状态表示"
 
 ### 证据索引
 - commit：Day 02 白天**零 commit**；产物于 09-26 23:5x 由 agent 代补入库一次
