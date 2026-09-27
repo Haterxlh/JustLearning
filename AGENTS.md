@@ -148,7 +148,7 @@
 **资源与刷题动线（详表见 `学习大纲.md` 第十一节）**
 - 主干 = `datawhalechina/diy-llm`（= Stanford CS336 中文共建版），只用 **ch2/ch3/ch4/ch10/ch12 + A1 / A3(只用现成记录拟合) / A5(只读) / A6**；B站 `BV11LEA6eEuj` = 同一门课的英文原课录像，**定位 = 点播手册，不按集数推进**（同一内容不许两个介质各学一遍）。
 - **看视频不算学习**：看完一讲必须留下产物（代码 / 图 / 一条能口头回答的结论）。
-- 刷题：**LeetCode 学算法（核心代码模式）→ 牛客练 ACM 模式（按题库 / 真题顺序，不按相似度挑题）**。模板 `algorithms/acm_template.py`。**不刷 Codeforces 冲分**，**不要求把 LeetCode 题改写成 ACM 版**。
+- 刷题：**LeetCode 学算法（核心代码模式）→ 牛客练 ACM 模式（按题库 / 真题顺序，不按相似度挑题）**。**不刷 Codeforces 冲分**，**不要求把 LeetCode 题改写成 ACM 版**。（模板文件已弃用：本人直接手写 ACM IO。）
 - ML 基础（P0-A）：`tutorial/machine-learning-toy-code` —— **按摸底错题索引使用，不顺着读**。
 - 论文顺序：Attention → GPT-2/3 → LLaMA → Longformer（机考原型）→ LoRA → QLoRA → InstructGPT → DPO → DeepSeek-R1 → FlashAttention → vLLM/PagedAttention → RAG → Self-RAG → ReAct → Toolformer → Reflexion → Agent Survey。
 

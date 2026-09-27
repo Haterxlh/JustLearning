@@ -86,8 +86,8 @@
 
 ### 3 行技术日志
 - 今天写通的代码：REALHW228「小红的稀疏缓存管理器」——`heapq` + 哈希表模拟缓存，`sys.stdin.buffer.read().split()` 整块读入（提交 100% 通过）
-- 今天真正搞懂的概念：（待本人补）
-- 今天没搞懂 / 明天要问的：（待本人补：笔记里自己写了 3 条卡点——看错题、`bytes` 要 `decode`、`heapq` 不熟）
+- 今天真正搞懂的概念：tokenizer 的**基础概念和一些需要注意的点**；ACM 模式里用 `sys.stdin.buffer` 读到的是 `bytes`，当字符串用时需要 `decode`；`heapq` 的一些**基础用法**
+- 今天没搞懂 / 明天要问的：**tokenizer 只看了概念、没有实操**（明天补：跑 ch2 的 `CS336_Assignment1_BPE.ipynb`）；`heapq` 还要多练
 
 ### 复盘三问
 1. 今天我写通了什么代码？（待本人补）
@@ -105,4 +105,4 @@
   - `handwritten/diy-llm-code/02-tokenizer.ipynb`：2 段 markdown 概念笔记（tokenizer 定义 / 动态颗粒度 / `incredible` → `['in','credible']`），**无代码无数字** → ch2 仅开头
 - 自测分数：**无**
 - 未做：环境收口（`notes/baseline-env.md` 零改动）、`gap-analysis.md` 第二节 56 条自评
-- 待确认：`algorithms/_day01_check.py`、`algorithms/acm_template.py` 被删除（未提交状态已随本次 commit 生效）
+- 待确认：~~`algorithms/_day01_check.py`、`algorithms/acm_template.py` 被删除~~ → **09-27 本人已确认：ACM 模板不需要了**（直接做 ACM 模式的题就行），两个文件保持删除；已同步清掉 AGENTS.md / 学习大纲.md / 每周进度规划.md 里的模板引用
