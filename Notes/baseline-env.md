@@ -1,89 +1,28 @@
-# 环境与性能基线表
+### 宿舍电脑的环境
 
-> W1 交付物之一。**只写真数字，不写形容词**。"差不多挺快的" = 无效记录。
-> 每次换环境（本地 / 云 / 租卡）都新增一节。
+使用 conda 中的 pytorch-01 环境
 
----
-
-## 0. 硬件核对（2026-09-25 09:38 实测）
-
-| 项 | 实测值 | `AGENTS.md` 里的假设 | 是否一致 |
-|---|---|---|---|
-| GPU | **NVIDIA T400 4GB** | 4070 Super 12G | ❌ **不一致** |
-| 显存 | 4096 MiB | 12288 MiB | ❌ |
-| 驱动 | 538.33（支持到 CUDA 12.2） | — | — |
-| Python 解释器 | 3.12.7 @ `D:\Software\anaconda\python.exe`（anaconda **base**） | — | 不要往 base 装包 |
-| conda | 24.11.0 | — | ✅ |
-| uv | 0.12.10 | — | ✅ |
-| ollama | 客户端 0.33.1（**服务未启动**） | — | 待确认 |
-| llama.cpp | **未安装** | — | 今天装 |
-| torch | **未安装** | — | 今天装 |
-| transformers / peft / trl | **未安装** | — | 今天装 |
-
-### 4GB 显存能力边界（据此决定做什么，别跟显存搏斗）
-
-| 想做的事 | 4GB 上可行？ | 结论 |
-|---|---|---|
-| llama.cpp + 1.5B Q4_K_M（~1.1GB） | ✅ | 可全量上卡，测 tokens/s |
-| llama.cpp + 4B Q4_K_M（~2.5GB） | ⚠️ 短上下文（`-c 1024`）可 | 能跑，别开长上下文 |
-| llama.cpp + 7B Q4_K_M（~4.4GB） | ❌ | 溢出，除非部分 offload（会很慢） |
-| vLLM（Turing sm_75，无 FA2/Marlin、无 bf16） | ❌ | 在 **T400 上**放弃；vLLM 归 4070S（见下） |
-| QLoRA 微调 7B/8B | ❌ | 需 12G+ → **远程到 4070S 跑**，不必上云/租卡 |
-| `minimind` 从零训小 GPT | ❌ | 4GB 太紧 → **远程到 4070S 跑** |
-| 全参微调任何模型 | ❌ | 不做（4070S 12G 也不够） |
-
-> ✅ **已确认（2026-09-25）：双机器 + 远程链路可用。**
-> - **宿舍 = 4070 Super 12G = 计算服务器**：tiny GPT / QLoRA / 消融 / vLLM 部署全在这台。
-> - **工位 = T400 4GB = 瘦客户端**：刷题、手撕、读源码、考点、论文、写作、1.5B 级推理基线。
-> - **远程连接已可用**（本人确认；具体工具名待今天登记）。训练任务**不需要人在宿舍**——远程提交即可。
->
-> **架构铁律**
-> 1. 吃显存的任务**一律远程到 4070S**，不在 T400 上硬扛。
-> 2. 远程训练必须 **detached 跑**（后台进程 + 日志落盘 + 周期 checkpoint），一次掉线不许毁掉几小时。
-> 3. GUI 远程（ToDesk/向日葵）只用于配置和看结果；**训练提交走 SSH/命令行**——GUI 抗断网能力差。
->
-> **待办**
-> - [ ] 今天登记：远程工具名 + 宿舍 Windows 版本（家庭版不能做 RDP 服务端）
-> - [ ] 在下面新增 `## 0b. 4070S 实测`，用**同一套测量方法**补测（否则两张卡的 tokens/s 不可比）
-
----
-
-## 1. 软件环境（今天装完后填）
-
-| 项 | 版本 | 备注 |
-|---|---|---|
-| conda env 名 | `llmprep` | python 3.11 |
-| torch |  | 必须 `torch.cuda.is_available() == True` |
-| torch CUDA 编译版本 |  | 目标 cu121（驱动 538.33 只到 CUDA 12.2） |
-| transformers |  |  |
-| peft / trl / datasets / accelerate |  |  |
-| llama.cpp |  | `llama-cli --version` 的 commit |
-| 下载的模型 |  | 文件名 + 大小 |
-
----
-
-## 2. 推理性能基线
-
-**测量方法（固定，别每次换）**：同一 prompt、`-ngl 99`、`-c 2048`、`-n 256`，跑 3 次取中位数。记录 prompt eval 与 eval 两段速度。
-
-| 模型 | 量化 | 显存占用 | prompt eval (tok/s) | 生成 (tok/s) | 首字延迟 (s) | 输出质量备注 |
-|---|---|---|---|---|---|---|
-| Qwen2.5-1.5B-Instruct | Q4_K_M |  |  |  |  |  |
-| Qwen3-4B | Q4_K_M |  |  |  |  |  |
-
----
-
-## 3. FP16 vs 量化对比（Day 02 做）
-
-| 模型 | 精度 | 显存 | 生成 tok/s | 5 条固定问题的输出质量（人工打分 1-5） |
-|---|---|---|---|---|
-|  | FP16 |  |  |  |
-|  | 4bit |  |  |  |
-
----
-
-## 4. 问题记录（卡过的地方 + 怎么解决的）
-
-| 现象 | 原因 | 解决命令/方案 |
-|---|---|---|
-|  |  |  |
+tmp\test\check-env.py 运行结果：
+```shell
+(pytorch-01) PS D:\Desktop\JustLearning> python tmp\test\check-env.py
+executable: D:\Environment\Anaconda\envs\pytorch-01\python.exe
+python: 3.10.16
+platform: Windows-10-10.0.22631-SP0
+torch: 2.5.1+cu124
+torch_cuda: 12.4
+cudnn: 90100
+transformers: 5.17.0
+datasets: 5.0.1
+peft: 0.21.0
+trl: 1.14.0
+bitsandbytes: 0.50.2
+cuda_available: True
+device: NVIDIA GeForce RTX 4070 SUPER
+capability: sm_89
+vram_gb: 12.0
+bf16_matmul: (4096, 4096)
+linear4bit_out: (8, 128)
+train_loss_first: 63.020027
+train_loss_last: 44.985588
+vram_peak_gb: 0.07
+```
