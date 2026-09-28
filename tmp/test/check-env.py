@@ -1,5 +1,5 @@
 import importlib
-import importlib.util
+import importlib.metadata
 import platform
 import re
 import shutil
@@ -9,17 +9,8 @@ import time
 from pathlib import Path
 
 PROMPT = "用一句话解释 KV Cache 为什么能加速解码。"
-LLAMA_ROOTS = [
-    Path("D:/Environment/llama.cpp"),
-    Path("D:/llama.cpp"),
-    Path("D:/Software/llama.cpp"),
-    Path("C:/llama.cpp"),
-]
-MODEL_ROOTS = [
-    Path("D:/models"),
-    Path("D:/Environment/models"),
-    Path("D:/Software/models"),
-]
+LLAMA_DIR = Path("D:/Environment/llama")
+MODEL_DIR = LLAMA_DIR / "models"
 PACKAGES_DORM = ("torch", "transformers", "datasets", "peft", "trl", "bitsandbytes", "tokenizers")
 PACKAGES_OFFICE = ("torch", "transformers", "tokenizers")
 
@@ -61,23 +52,16 @@ for drive in ("C:/", "D:/"):
     report(f"disk_{drive[0]}", f"剩余 {usage.free / 1024**3:.1f} GB / 共 {usage.total / 1024**3:.1f} GB")
 
 llama_cli = shutil.which("llama-cli")
-if llama_cli is None:
-    for root in LLAMA_ROOTS:
-        if not root.exists():
-            continue
-        found = sorted(root.glob("**/llama-cli.exe"))
-        if found:
-            llama_cli = str(found[0])
-            break
-report("llama_cli", llama_cli or "未找到")
+if llama_cli is None and LLAMA_DIR.exists():
+    found = sorted(LLAMA_DIR.glob("**/llama-cli.exe"))
+    if found:
+        llama_cli = str(found[0])
+report("llama_cli", llama_cli or f"{LLAMA_DIR} 下未找到")
 if llama_cli:
     run([llama_cli, "--version"])
 
-models = []
-for root in MODEL_ROOTS:
-    if root.exists():
-        models.extend(sorted(root.glob("**/*.gguf")))
-report("gguf_models", [f"{path.name} ({path.stat().st_size / 1024**3:.2f} GB)" for path in models] or "未找到")
+models = sorted(MODEL_DIR.glob("**/*.gguf")) if MODEL_DIR.exists() else []
+report("gguf_models", [f"{path.name} ({path.stat().st_size / 1024**3:.2f} GB)" for path in models] or f"{MODEL_DIR} 下未找到")
 
 if llama_cli and models:
     model = models[0]
@@ -101,13 +85,14 @@ if branch == "dorm":
 
 print("=== Python 层面 ===")
 required = PACKAGES_DORM if branch == "dorm" else PACKAGES_OFFICE
-missing = [name for name in required if importlib.util.find_spec(name) is None]
+distributions = importlib.metadata.packages_distributions()
+missing = [name for name in required if name not in distributions]
 report("missing_packages", missing or "无")
 for name in required:
     if name not in missing:
-        report(name, importlib.import_module(name).__version__)
+        report(name, importlib.metadata.version(distributions[name][0]))
 if "torch" in missing:
-    raise SystemExit("torch 未安装，本次只报告机器层面")
+    raise SystemExit("torch 未装好，本次只报告机器层面")
 
 torch = importlib.import_module("torch")
 report("torch_cuda", torch.version.cuda)
@@ -121,21 +106,23 @@ report("device", properties.name)
 report("capability", f"sm_{properties.major}{properties.minor}")
 report("vram_gb", round(properties.total_memory / 1024**3, 1))
 
-# 4096 三次方 fp16 矩阵乘法：两张卡用同一个测法，算力可直接比
-left = torch.randn(4096, 4096, dtype=torch.float16, device="cuda")
-right = torch.randn(4096, 4096, dtype=torch.float16, device="cuda")
-for _ in range(3):
-    left @ right
-torch.cuda.synchronize()
-started = time.perf_counter()
-for _ in range(20):
-    left @ right
-torch.cuda.synchronize()
-elapsed = time.perf_counter() - started
-report("fp16_matmul_ms", round(elapsed / 20 * 1000, 2))
-report("fp16_tflops", round(20 * 2 * 4096**3 / elapsed / 1e12, 1))
-del left, right
-torch.cuda.empty_cache()
+# 4096 三次方矩阵乘法：两张卡用同一个测法，算力可直接比
+for dtype in (torch.float32, torch.float16):
+    left = torch.randn(4096, 4096, dtype=dtype, device="cuda")
+    right = torch.randn(4096, 4096, dtype=dtype, device="cuda")
+    for _ in range(3):
+        left @ right
+    torch.cuda.synchronize()
+    started = time.perf_counter()
+    for _ in range(20):
+        left @ right
+    torch.cuda.synchronize()
+    elapsed = time.perf_counter() - started
+    label = str(dtype).split(".")[-1]
+    report(f"{label}_matmul_ms", round(elapsed / 20 * 1000, 2))
+    report(f"{label}_tflops", round(20 * 2 * 4096**3 / elapsed / 1e12, 1))
+    del left, right
+    torch.cuda.empty_cache()
 
 if properties.major >= 8:
     x = torch.randn(4096, 4096, dtype=torch.bfloat16, device="cuda")
@@ -152,21 +139,20 @@ if properties.major >= 8:
 else:
     report("bf16_matmul", f"跳过：sm_{properties.major}{properties.minor} 无 bf16 硬件支持")
 
-# 200 步小模型训练：验证反向传播与优化器
+# 200 步小模型训练：验证反向传播与优化器。sm_75 上 fp16 比 fp32 慢，所以只给 sm_80+ 开 bf16
 torch.manual_seed(0)
 features = torch.randn(512, 64, device="cuda")
 target = features @ torch.randn(64, 8, device="cuda")
 model = torch.nn.Linear(64, 8).cuda()
 optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
-dtype = torch.bfloat16 if branch == "dorm" else torch.float16
-scaler = torch.amp.GradScaler("cuda", enabled=branch != "dorm")
+enabled = properties.major >= 8
+report("autocast_bf16", enabled)
 for step in range(200):
-    with torch.autocast("cuda", dtype=dtype):
+    with torch.autocast("cuda", dtype=torch.bfloat16, enabled=enabled):
         loss = torch.nn.functional.mse_loss(model(features), target)
     optimizer.zero_grad()
-    scaler.scale(loss).backward()
-    scaler.step(optimizer)
-    scaler.update()
+    loss.backward()
+    optimizer.step()
     if step == 0:
         report("train_loss_first", round(loss.item(), 6))
 report("train_loss_last", round(loss.item(), 6))
