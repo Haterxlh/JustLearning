@@ -3,6 +3,7 @@
 .venv/
 venv/
 env/
+*.code-workspace
 
 # ===== 大体积教程仓库 / 数据集（保留在磁盘上，但不进 git）=====
 # tutorial/machine-learning-toy-code 有 205MB（含 MNIST 原始数据）
