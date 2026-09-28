@@ -1,0 +1,58 @@
+=== 机器层面 ===
+executable: D:\Desktop\JustLearning\.just-learning-venv\Scripts\python.exe
+python: 3.12.14
+platform: Windows-11-10.0.26200-SP0
+cwd: D:\Desktop\JustLearning
+$ nvidia-smi --query-gpu=name,driver_version,memory.total,memory.used --format=csv,noheader
+NVIDIA T400 4GB, 538.33, 4096 MiB, 90 MiB
+returncode: 0
+gpu: NVIDIA T400 4GB
+branch: office
+$ nvidia-smi
+Mon Sep 28 21:07:19 2026       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 538.33                 Driver Version: 538.33       CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                     TCC/WDDM  | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA T400 4GB              WDDM  | 00000000:01:00.0 Off |                  N/A |
+| 40%   44C    P8              N/A /  31W |     90MiB /  4096MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|    0   N/A  N/A      1848    C+G   C:\Program Files\Tencent\QQNT\QQ.exe      N/A      |
+|    0   N/A  N/A     26504    C+G   C:\Program Files\Tencent\QQNT\QQ.exe      N/A      |
++---------------------------------------------------------------------------------------+
+returncode: 0
+driver_cuda_max: 12.2
+disk_C: 剩余 176.4 GB / 共 474.9 GB
+disk_D: 剩余 401.6 GB / 共 931.5 GB
+llama_cli: D:\Environment\llama 下未找到
+gguf_models: D:\Environment\llama\models 下未找到
+=== Python 层面 ===
+missing_packages: 无
+torch: 2.5.1+cu121
+transformers: 5.17.0
+tokenizers: 0.23.2
+torch_cuda: 12.1
+cudnn: 90100
+cuda_available: True
+device: NVIDIA T400 4GB
+capability: sm_75
+vram_gb: 4.0
+float32_matmul_ms: 121.22
+float32_tflops: 1.1
+float16_matmul_ms: 885.48
+float16_tflops: 0.2
+bf16_matmul: 跳过：sm_75 无 bf16 硬件支持
+autocast_bf16: False
+train_loss_first: 73.422707
+train_loss_last: 53.408237
+peak_vram_gb: 0.2
