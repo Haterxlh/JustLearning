@@ -32,3 +32,4 @@ Thumbs.db
 # ===== 临时脚本 =====
 _nb_*.py
 _scratch_*.py
+tmp/
