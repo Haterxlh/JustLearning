@@ -1,5 +1,6 @@
 import importlib
 import importlib.metadata
+import importlib.util
 import platform
 import re
 import shutil
@@ -42,7 +43,7 @@ branch = "office" if "T400" in gpu_name else "dorm"
 report("branch", branch)
 
 driver = run(["nvidia-smi"])
-match = re.search(r"CUDA Version:\s*([\d.]+)", driver.stdout)
+match = re.search(r"CUDA (?:UMD )?Version:\s*([\d.]+)", driver.stdout)
 report("driver_cuda_max", match.group(1) if match else "未解析到")
 
 for drive in ("C:/", "D:/"):
@@ -85,12 +86,11 @@ if branch == "dorm":
 
 print("=== Python 层面 ===")
 required = PACKAGES_DORM if branch == "dorm" else PACKAGES_OFFICE
-distributions = importlib.metadata.packages_distributions()
-missing = [name for name in required if name not in distributions]
+missing = [name for name in required if importlib.util.find_spec(name) is None]
 report("missing_packages", missing or "无")
 for name in required:
     if name not in missing:
-        report(name, importlib.metadata.version(distributions[name][0]))
+        report(name, importlib.metadata.version(name))
 if "torch" in missing:
     raise SystemExit("torch 未装好，本次只报告机器层面")
 

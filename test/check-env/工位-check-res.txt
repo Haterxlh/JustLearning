@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 PS D:\Desktop\JustLearning> .\.just-learning-venv\Scripts\python.exe tmp\test\check-env\check-env.py
->>>>>>> 47997dab978e9c97a4925b00525cf57738e7712c
 === 机器层面 ===
 executable: D:\Desktop\JustLearning\.just-learning-venv\Scripts\python.exe
 python: 3.12.14
