@@ -1,16 +1,16 @@
-(pytorch-01) PS D:\Desktop\JustLearning> python .\tmp\test\check-env\check-env.py
+(pytorch-01) PS D:\Desktop\JustLearning> python .\test\check-env\check-env.py
 === 机器层面 ===
 executable: D:\Environment\Anaconda\envs\pytorch-01\python.exe
 python: 3.10.16
 platform: Windows-10-10.0.22631-SP0
 cwd: D:\Desktop\JustLearning
 $ nvidia-smi --query-gpu=name,driver_version,memory.total,memory.used --format=csv,noheader
-NVIDIA GeForce RTX 4070 SUPER, 610.74, 12282 MiB, 1563 MiB
+NVIDIA GeForce RTX 4070 SUPER, 610.74, 12282 MiB, 1514 MiB
 returncode: 0
 gpu: NVIDIA GeForce RTX 4070 SUPER
 branch: dorm
 $ nvidia-smi
-Mon Sep 28 21:29:22 2026       
+Mon Sep 28 21:52:24 2026
 +-----------------------------------------------------------------------------------------+
 | NVIDIA-SMI 610.74                 KMD Version: 610.74        CUDA UMD Version: 13.3     |
 +-----------------------------------------+------------------------+----------------------+
@@ -19,7 +19,7 @@ Mon Sep 28 21:29:22 2026
 |                                         |                        |               MIG M. |
 |=========================================+========================+======================|
 |   0  NVIDIA GeForce RTX 4070 ...  WDDM  |   00000000:01:00.0  On |                  N/A |
-| 30%   39C    P0             33W /  220W |    1561MiB /  12282MiB |      0%      Default |
+| 30%   39C    P0             33W /  220W |    1514MiB /  12282MiB |      0%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 
@@ -57,9 +57,9 @@ Mon Sep 28 21:29:22 2026
 returncode: 0
 driver_cuda_max: 未解析到
 disk_C: 剩余 31.4 GB / 共 199.2 GB
-disk_D: 剩余 252.3 GB / 共 754.3 GB
+disk_D: 剩余 251.1 GB / 共 754.3 GB
 llama_cli: D:\Environment\llama 下未找到
-gguf_models: ['qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf (3.15 GB)']
+gguf_models: ['qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf (3.72 GB)', 'qwen2.5-7b-instruct-q4_k_m-00002-of-00002.gguf (0.64 GB)']
 $ powercfg /q SCHEME_CURRENT SUB_SLEEP STANDBYIDLE
 电源方案 GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (平衡)
   GUID 别名: SCHEME_BALANCED
@@ -91,8 +91,8 @@ capability: sm_89
 vram_gb: 12.0
 float32_matmul_ms: 5.7
 float32_tflops: 24.1
-float16_matmul_ms: 1.96
-float16_tflops: 70.2
+float16_matmul_ms: 1.84
+float16_tflops: 74.7
 bf16_matmul: (4096, 4096)
 linear4bit_out: (8, 128)
 autocast_bf16: True
