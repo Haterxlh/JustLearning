@@ -45,7 +45,7 @@
   - `algorithms/1.两数之和/`、`3.无重复字符的最长子串/`、`15.三数之和/`、`49.字母异位词分组/`（各含 `.py`；#15、#49 另有卡点 `.md`）
   - 复核：`algorithms/_day01_check.py` 跑 26 个用例 → **PASS=26 FAIL=0**
   - 复杂度实测（#3，字母表不设限）：n=10000 → 0.392s ｜ n=20000 → 1.565s ｜ n=40000 → 8.720s（确认 O(n²)；LeetCode 能过是因为题目限定字母表 ~95 个字符）
-  - `notes/gap-analysis.md`：**6 份 JD 原文**（华为 AI应用；腾讯 AI全栈 / Agent开发 / AI应用；字节 AI应用研发 / AI全栈）。第二节 56 条考点自评**未填**
+  - `notes/gap-analysis.md`：**6 份 JD 原文**（华为 AI应用；腾讯 AI全栈 / Agent开发 / AI应用；字节 AI应用研发 / AI全栈）
   - `handwritten/machine-learning-toy-code/LinearRegression.ipynb`：手写带偏置 BGD 收敛 `w=1.9822 / b=0.7056`；sklearn `1.9848 / 0.7040`；真值 `2.0 / 0.7`
   - 新建：`.gitignore`、`algorithms/acm_template.py`
 - 自测分数：LeetCode 摸底 4 道 → 26/26 用例通过；**未做** 机考全真摸底（20 选择 + 2 编程，Day 03）。（原计划的"ACM 模式转换"已于当日**取消**：改为 LeetCode 学算法 + 牛客练 ACM 模式，不把同一道题做两遍）
@@ -69,7 +69,7 @@
 
 ### 🔎 口述暴露的两个缺口（进后续计划，不许丢）
 - **softmax 只做了 2 维** → `keep_top_k_logits` 是行循环、`quick_choose` 是 1D；真实推理里 logits 是 `(B, T, V)` 三维（vLLM/transformers 都是扁平化 + `take_along_axis`）。→ 计划：Day 03 补漏位（可选，10 min）或 W2，用 `np.take_along_axis` 改成支持 `(B,T,V)`，并与 `torch.nn.functional.softmax` 对一次数值
-- **dp 状态表示缺经验** → 计划：牛客按**真题顺序**推进；**卡点笔记只写"这题考什么 + 我的卡点"**（华为机考题型是混的：字符串/模拟/贪心/二分/BFS/栈/DP 都有，**不是只有 dp**）；**只有真做 dp 题时**，才先写一句"状态表示"
+- **dp 状态表示缺经验** → 计划：牛客按**真题顺序**推进；**代码与卡点都写在该题 `.ipynb` 里，卡点只写"这题考什么 + 我的卡点"**（华为机考题型是混的：字符串/模拟/贪心/二分/BFS/栈/DP 都有，**不是只有 dp**）；**只有真做 dp 题时**，才先写一句"状态表示"
 
 ### 证据索引
 - commit：Day 02 白天**零 commit**；产物于 09-26 23:5x 由 agent 代补入库一次
@@ -104,5 +104,5 @@
   - `handwritten/diy-llm-code/01-wandb.ipynb`：`wandb.init(mode="offline")` 跑通（`execution_count=1`），落地 `wandb/offline-run-20260927_163955-jrzc32ab/`。**属 diy-llm ch1（W&B），用量表标注"明确不碰"**
   - `handwritten/diy-llm-code/02-tokenizer.ipynb`：2 段 markdown 概念笔记（tokenizer 定义 / 动态颗粒度 / `incredible` → `['in','credible']`），**无代码无数字** → ch2 仅开头
 - 自测分数：**无**
-- 未做：环境收口（`notes/baseline-env.md` 零改动）、`gap-analysis.md` 第二节 56 条自评
+- 未做：环境收口（`notes/baseline-env.md` 零改动）
 - 待确认：~~`algorithms/_day01_check.py`、`algorithms/acm_template.py` 被删除~~ → **09-27 本人已确认：ACM 模板不需要了**（直接做 ACM 模式的题就行），两个文件保持删除；已同步清掉 AGENTS.md / 学习大纲.md / 每周进度规划.md 里的模板引用

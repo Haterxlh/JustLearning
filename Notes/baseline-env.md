@@ -27,6 +27,26 @@ train_loss_last: 44.985588
 vram_peak_gb: 0.07
 ```
 
+#### llama.cpp（2026-09-29）
+
+程序本体：`D:\Environment\llama\llama-b10068`，版本 `b10068-571d0d540`，构建 `win-cuda-12.4-x64`。
+CUDA 运行时库 `cublas64_12.dll` / `cublasLt64_12.dll` / `cudart64_12.dll` 与该目录下的可执行文件放在同一目录。
+模型：`D:\Environment\LLMs\qwen2.5-7b-instruct-q4_k_m\`，两个分片合计 4.36 GiB，只指定第一个分片即可。
+启动脚本：`D:\Environment\llama\start-qwen-server.cmd`（前台窗口）、`D:\Environment\llama\llama-server-daemon.cmd`（输出写入 `D:\Environment\llama\logs\server.log`）。手动双击启动，未注册计划任务。
+
+`llama-bench.exe -m <第一个分片> -ngl 99` 结果：
+
+```shell
+| model                  |    size | params | backend | ngl |  test |             t/s |
+| qwen2 7B Q4_K - Medium | 4.36 GiB | 7.62 B | CUDA    |  99 | pp512 | 5922.61 ± 74.46 |
+| qwen2 7B Q4_K - Medium | 4.36 GiB | 7.62 B | CUDA    |  99 | tg128 |    96.24 ± 0.14 |
+```
+
+接口：`http://127.0.0.1:8080`，OpenAI 兼容路径 `/v1/chat/completions`，`model` 字段填 `qwen2.5-7b-instruct`，`api_key` 填任意字符串。`n_slots = 4`，单槽上下文 8192。
+调用样例：`test\check-llama\check-llama.py`。
+
+> Windows PowerShell 5.1 的 `Invoke-RestMethod` 直接传字符串 body 会把非 ASCII 字符发成 `?`，必须先用 `[System.Text.Encoding]::UTF8.GetBytes()` 转成字节数组再传。
+
 ### 工位电脑的环境
 
 使用仓库内的 uv 虚拟环境 `.just-learning-venv`
