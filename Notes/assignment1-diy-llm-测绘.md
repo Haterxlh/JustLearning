@@ -868,4 +868,4 @@ BPE notebook 同样带有 `execution_count` 与真实 stdout（
 - **我没有用任何先验知识去猜这份 PDF 的内容。** 它是 diy-llm 仓库里唯一可能承载「官方作业要求 / 评分标准 / 算力建议」的文档，**这个空白是本报告最大的信息缺口**。
 - 同类失败：Stanford 原版 `cs336_assignment1_basics.pdf` 也是 `unsupported content type`，同样抓取失败。
 
-**可行的替代获取方式（未执行，留给下游决定）**：用 `ssh_exec` / 本地 `curl -o` 下载 PDF 到工作区，再用 PDF 解析工具（如 `pypdf`）提取文本。当前会话的文件沙箱为 workspace-write，下载到 `D:\Desktop\JustLearning\` 下是可行的。
+**可行的替代获取方式（未执行，留给下游决定）**：用本地 `curl -o` 下载 PDF 到工作区，再用 PDF 解析工具（如 `pypdf`）提取文本。
