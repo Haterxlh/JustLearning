@@ -42,7 +42,7 @@ branch = "office" if "T400" in gpu_name else "dorm"
 report("branch", branch)
 
 driver = run(["nvidia-smi"])
-match = re.search(r"CUDA Version:\s*([\d.]+)", driver.stdout)
+match = re.search(r"CUDA (?:UMD )?Version:\s*([\d.]+)", driver.stdout)
 report("driver_cuda_max", match.group(1) if match else "未解析到")
 
 for drive in ("C:/", "D:/"):
