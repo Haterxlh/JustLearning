@@ -138,7 +138,7 @@
 3. 明天的第一件事是什么？09:00 做 20 道选择题限时 60 min（W1 唯一未清的账，已顺延两次），分数与逐题错因当场写进 `Notes/错题本.md` 与 `Notes/gap-analysis.md` 的「选择题得分」栏；下午接手写简化 BPE，并与 `bpe_tokenizer/tokenizer.json` 对拍词表大小与压缩率。
 
 ### 证据索引
-- commit：`9687a42`（09-30 00:59，只含 `Notes/RAG/0929.md` 与台账更新）；**REALHW224 目录与本文件 Day 05 改动、`handwritten/diy-llm-code/02-tokenizer.ipynb` 由 agent 于 09-30 凌晨补提交**
+- commit：`9687a42`（09-30 00:59，只含 `Notes/RAG/0929.md` 与台账更新）；`73e53e7`（09-30 01:02，agent 补提交：REALHW224 目录、`handwritten/diy-llm-code/02-tokenizer.ipynb` 的 ch2 概念笔记、台账与本节）
 - 产物文件 / 数字 / 图表：
   - `algorithms/224 REALHW 小红的置信约束训练损失/`：`224 ...ipynb` + `desc.png`；**通过全部用例 / 1647ms / 95084KB**；5 条踩坑 + 熵惩罚推导
   - `handwritten/diy-llm-code/02-tokenizer.ipynb`：STEP-1 语料准备 + STEP-2 预分词（标题空着）；**无代码无数字**
