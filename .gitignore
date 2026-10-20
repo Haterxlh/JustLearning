@@ -11,7 +11,8 @@ tutorial/
 datasets/
 
 # ===== 模型权重（都是 GB 级）=====
-models/
+# 前面加斜杠只匹配仓库根目录的 models/，避免把 backend/app/models 一类代码目录挡掉
+/models/
 *.gguf
 *.safetensors
 *.pt
@@ -22,6 +23,20 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .ipynb_checkpoints/
+
+# ===== Node / 前端（Vite）=====
+# 递归匹配任意层级，projects/pj01_chat_demo/frontend/node_modules 已 121MB
+node_modules/
+dist/
+dist-ssr/
+.vite/
+npm-debug.log*
+*.local
+
+# ===== 环境变量与密钥 =====
+.env
+.env.*
+!.env.example
 
 # ===== 编辑器 / 系统 =====
 .vscode/
