@@ -95,6 +95,8 @@
 
 > **v5（2026-10-19）**：主线项目在本仓库 `projects/agent-service/`，代码、评测集、指标、讲述稿都放这里，`projects/` 目录启用。前一份实习已于 10-19 结束，其仓库 `D:\Desktop\workspace\esg-visa-agent-project` 停用、不再引用。新实习（金砖国家未来网络研究院·人工智能专班，10-20 入职）里可讲的模块进讲述稿第二段，公司代码不进本仓库。
 
+> **pj01 对话 demo（2026-10-20 起）**：`projects/pj01_chat_demo/` 是前后端分离的对话应用（前端 React + Vite + TypeScript，后端 FastAPI + uv 虚拟环境 + pgvector 容器，SSE 流式输出）。继续这个 demo 先读该目录的 `README.md`：目标、接口契约、分步计划、协作约定都在里面；进度与决定读 `projects/pj01_chat_demo/docs/adr/`，每完成一个小步或阶段追加一条。提问记录在 `projects/pj01_chat_demo/docs/questions/YYYY-MM-DD.md`，静默写入、代词换写成具体对象、只记问题与简要回答。
+
 ---
 
 ## 4. 每日协作协议
